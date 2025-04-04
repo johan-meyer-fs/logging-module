@@ -1,0 +1,69 @@
+api:
+  enabled: ${apiEnabled}
+
+sources:
+  app_logs:
+    type: "file"
+    include:
+      - "${configIncludePath}.log"
+    read_from: "beginning"
+    multiline:
+      mode: "halt_before"
+      start_pattern: "^\\{"
+      condition_pattern: "^\\{"
+      timeout_ms: 1000
+
+transforms:
+  parse_json:
+    type: "remap"
+    inputs:
+      - "app_logs"
+    source: |
+      .message = parse_json!(string!(.message))
+  enhance_logs:
+    type: "remap"
+    inputs:
+      - "parse_json"
+    source: |
+      # Add vector metadata
+      .vector = {"source_type": "spring_boot", "pipeline": "logtail"}
+
+      # Ensure timestamp is properly formatted if needed
+      if exists(.timestamp) && is_string(.timestamp) {
+      # Try to parse the timestamp, but don't fail if it's not in the expected format
+      .parsed_time = parse_timestamp!(.timestamp, format: "%+")
+      if exists(.parsed_time) {
+      	.timestamp = .parsed_time
+        }
+      }
+
+      # Add environment-specific tags
+      if !exists(.tags) {
+        .tags = []
+      }
+      if is_array(.tags) {
+        .tags = append!(.tags, ["spring-boot", "vector-processed"])
+      }
+
+sinks:
+  logtail:
+    type: "http"
+    inputs:
+      - "enhance_logs"
+    encoding:
+      codec: "json"
+    uri: "${ingestingHost}"
+    method: "post"
+    headers:
+      Authorization: "Bearer ${sourceToken}"
+    compression: "gzip"
+    buffer:
+      type: "disk"
+      max_size: 268435488
+      when_full: "block"
+    request:
+      retry_attempts: 5
+      retry_backoff_secs: 1
+    batch:
+      max_events: 100
+      timeout_secs: 1

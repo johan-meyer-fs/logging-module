@@ -1,0 +1,31 @@
+spring:
+  config:
+    import:
+      - optional:file:env.yaml
+      - optional:file:/app/env.yaml
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: logging-module
+    version: 1.0.0
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+logging:
+  level:
+    root: INFO
+    io.skylabx: INFO
+
+betterstack:
+  ingesting-host: ${BETTERSTACK_INGESTING_HOST}
+  source-token: ${BETTERSTACK_SOURCE_TOKEN}
+
+vector:
+  api:
+    enabled: ${VECTOR_API_ENABLED}
+  template:
+    path: classpath:vector-template.yaml
+  config:
+    include-path: ${VECTOR_SOURCE_INCLUDE_PATH:tmp/logs/application}
+    output: vector.yaml

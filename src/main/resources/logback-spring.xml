@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<springProperty scope="context" name="vectorSourcePath" source="vector.config.include-path"/>
+	<springProperty scope="context" name="serviceName" source="spring.application.name"/>
+	<springProperty scope="context" name="serviceVersion" source="spring.application.version"/>
+	<springProperty scope="context" name="deploymentEnvironment" source="spring.profiles.active"/>
+
+	<!-- Console appender for local development -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%gray(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) %msg %n</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<!-- File appender with JSON formatting for local storage -->
+	<appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${vectorSourcePath}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${vectorSourcePath}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+
+		<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<!-- 1. Core Log Metadata -->
+				<nestedField>
+					<fieldName>core</fieldName>
+					<providers>
+						<uuid />
+						<timestamp>
+							<fieldName>timestamp</fieldName>
+						</timestamp>
+						<logLevel />
+						<loggerName />
+						<threadName />
+						<sequence />
+						<message />
+						<provider class="io.skylabx.logging_module.provider.NestedMdcJsonProvider" />
+					</providers>
+				</nestedField>
+				<!-- 2. Request & Traceability Metadata -->
+				<nestedField>
+					<fieldName>request</fieldName>
+					<providers>
+						<provider class="io.skylabx.logging_module.provider.HttpRequestResponseJsonProvider" />
+					</providers>
+				</nestedField>
+				<!-- 3. Service Context Metadata -->
+				<nestedField>
+					<fieldName>service</fieldName>
+					<providers>
+						<contextName />
+						<remoteHost>
+							<fieldName>remoteHost</fieldName>
+						</remoteHost>
+						<pattern>
+							<pattern>{"service_name":"${serviceName}","service_version":"${serviceVersion}","deployment_environment":"${deploymentEnvironment}"}</pattern>
+						</pattern>
+					</providers>
+				</nestedField>
+				<!-- 4. Error & Debugging Metadata -->
+				<nestedField>
+					<fieldName>error</fieldName>
+					<providers>
+						<rootStackTraceElement />
+						<throwableClassName />
+						<throwableMessage />
+						<throwableRootCauseClassName />
+						<throwableRootCauseMessage />
+						<stackTrace />
+					</providers>
+				</nestedField>
+				<!-- 5. Security & Compliance Metadata -->
+				<nestedField>
+					<fieldName>security</fieldName>
+					<providers>
+						<pattern>
+							<pattern>{
+								"auth_method": null,
+								"is_authenticated": null,
+								"roles": null
+							}</pattern>
+						</pattern>
+					</providers>
+				</nestedField>
+			</providers>
+			<jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
+		</encoder>
+	</appender>
+
+	<!-- Root logger configuration -->
+	<root level="INFO">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="JSON_FILE" />
+	</root>
+</configuration>
