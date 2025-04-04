@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LoggingModuleApplication {
 
 	public static void main(String[] args) {
-		// Add new items
+
 		MDC.put("orderNumber", "1234567890");
 
 		log.info("Order placed.");

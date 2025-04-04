@@ -5,6 +5,7 @@
 env.yml
 env.yaml
 vector.yaml
+.m2/*
 
 ### Eclipse ###
 .metadata
