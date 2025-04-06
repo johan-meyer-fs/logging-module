@@ -1,4 +1,4 @@
-package io.skylabx.logging_module.config;
+package io.skylabx.logging_module.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

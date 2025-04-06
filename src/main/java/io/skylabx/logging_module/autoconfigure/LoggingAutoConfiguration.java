@@ -1,15 +1,16 @@
-package io.skylabx.logging_module.config;
-
-import lombok.extern.slf4j.Slf4j;
+package io.skylabx.logging_module.autoconfigure;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnClass(Logger.class)
 // @EnableConfigurationProperties(LoggingProperties.class)
 // @ConditionalOnProperty(name = "logging", havingValue = "true", matchIfMissing = true)
 public class LoggingAutoConfiguration
@@ -25,6 +26,7 @@ public class LoggingAutoConfiguration
 	// }
 
 	@Bean
+	@ConditionalOnMissingBean
     public Logger logger() {
 		System.out.println("Creating logger");
         return (Logger) LoggerFactory.getLogger("CustomLogger");

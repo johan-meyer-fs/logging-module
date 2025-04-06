@@ -1,1 +1,1 @@
-io.skylabx.logging_module.config.LoggingAutoConfiguration
+io.skylabx.logging_module.autoconfigure.LoggingAutoConfiguration
