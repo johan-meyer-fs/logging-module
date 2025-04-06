@@ -1,1 +1,2 @@
 io.skylabx.logging_module.autoconfigure.LoggingAutoConfiguration
+io.skylabx.logging_module.config.VectorConfigGenerator

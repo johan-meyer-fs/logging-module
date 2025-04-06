@@ -1,6 +1,7 @@
 package io.skylabx.logging_module.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
  * Configuration class that generates Vector YAML configuration file by reading
  * a template and substituting environment variables.
  */
+@AutoConfiguration
 @Component
 @Slf4j
 @ConfigurationProperties(prefix = "vector")

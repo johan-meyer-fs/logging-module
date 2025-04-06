@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.skylabx.logging_module.autoconfigure.LoggingAutoConfiguration
+io.skylabx.logging_module.autoconfigure.LoggingAutoConfiguration,\
+io.skylabx.logging_module.config.VectorConfigGenerator
