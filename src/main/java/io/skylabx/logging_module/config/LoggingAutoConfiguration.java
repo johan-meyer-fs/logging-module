@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties(LoggingProperties.class)
-@ConditionalOnProperty(name = "logging", havingValue = "true", matchIfMissing = true)
+// @ConditionalOnProperty(name = "logging", havingValue = "true", matchIfMissing = true)
 public class LoggingAutoConfiguration
 {
 	// This class primarily exists to register the properties and enable
