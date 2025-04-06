@@ -1,4 +1,4 @@
-package io.skylab.logging_module.provider;
+package io.skylabx.logging_module.provider;
 
 import net.logstash.logback.composite.AbstractFieldJsonProvider;
 

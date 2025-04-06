@@ -1,4 +1,4 @@
-package io.skylab.logging_module.provider;
+package io.skylabx.logging_module.provider;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.fasterxml.jackson.core.JsonGenerator;

@@ -1,4 +1,4 @@
-package io.skylab.logging_module;
+package io.skylabx.logging_module;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
