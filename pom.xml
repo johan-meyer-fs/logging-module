@@ -9,7 +9,7 @@
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.skylabx</groupId>
+	<groupId>io.skylab</groupId>
 	<artifactId>logging-module</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>logging-module</name>

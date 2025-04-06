@@ -1,4 +1,4 @@
-package io.skylabx.logging_module.autoconfigure;
+package io.skylab.logging_module.autoconfigure;
 
 import ch.qos.logback.classic.Logger;
 import org.slf4j.LoggerFactory;

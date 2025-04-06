@@ -1,4 +1,4 @@
-package io.skylabx.logging_module.config;
+package io.skylab.logging_module.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
