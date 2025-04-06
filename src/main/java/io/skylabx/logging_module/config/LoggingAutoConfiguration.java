@@ -1,12 +1,13 @@
 package io.skylabx.logging_module.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-// @EnableConfigurationProperties(LoggingProperties.class)
+@EnableConfigurationProperties(LoggingProperties.class)
+@ConditionalOnClass(Slf4j.class)
 // @ConditionalOnProperty(name = "logging", havingValue = "true", matchIfMissing = true)
 public class LoggingAutoConfiguration
 {
@@ -14,13 +15,11 @@ public class LoggingAutoConfiguration
 	// auto-configuration
 	// The actual logging configuration happens in logback-spring.xml
 
-	private final VectorConfigGenerator vectorConfigGenerator;
-	// private final LoggingProperties properties;
+	private final LoggingProperties properties;
 
-	public LoggingAutoConfiguration(VectorConfigGenerator vectorConfigGenerator)
+	public LoggingAutoConfiguration(LoggingProperties properties)
 	{
 		System.out.println("Running LoggingAutoConfiguration constructor");
-		this.vectorConfigGenerator = vectorConfigGenerator;
-
+		this.properties = properties;
 	}
 }
