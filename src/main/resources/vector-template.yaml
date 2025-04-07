@@ -19,7 +19,17 @@ transforms:
     inputs:
       - "app_logs"
     source: |
-      .message = parse_json!(string!(.message))
+      .string_message = string!(.message)
+      if starts_with(.string_message, "{") {
+        # Attempt to parse the JSON string in the message field
+        .message = parse_json!(.string_message)
+      } else if is_string(.message) {
+        # If it's not a JSON string, just keep it as is
+        .message = .string_message
+      } else {
+        # If it's not a string, set it to null or handle accordingly
+        .message = null
+      }
   enhance_logs:
     type: "remap"
     inputs:
