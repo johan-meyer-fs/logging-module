@@ -19,10 +19,10 @@ public class LoggingAutoConfiguration
 	// This class primarily exists to register the properties and enable
 	// auto-configuration
 	// The actual logging configuration happens in logback-spring.xml
-	private final LoggingProperties properties;
-	public LoggingAutoConfiguration(LoggingProperties properties)
+	// private final LoggingProperties properties;
+	public LoggingAutoConfiguration()
 	{
 		System.out.println("Running LoggingAutoConfiguration constructor");
-		this.properties = properties;
+		// this.properties = properties;
 	}
 }
