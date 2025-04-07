@@ -6,10 +6,10 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.4</version>
-		<relativePath/>
+		<relativePath />
 		<!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.skylab</groupId>
+	<groupId>io.skylabx</groupId>
 	<artifactId>logging-module</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>logging-module</name>
@@ -38,24 +38,20 @@
 
 	<properties>
 		<java.version>21</java.version>
-		<spring-cloud-gcp.version>6.0.0</spring-cloud-gcp.version>
-		<spring-cloud.version>2024.0.0</spring-cloud.version>
-		<liquibase-maven-plugin.version>4.26.0</liquibase-maven-plugin.version>
-		<liquibase-hibernate.version>4.26.0</liquibase-hibernate.version>
 		<logback-classic.version>1.5.6</logback-classic.version>
 	</properties>
 
-	<!-- <dependencyManagement>
+	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>3.0.0</version>
+				<version>3.4.4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement> -->
+	</dependencyManagement>
 
 	<dependencies>
 
@@ -71,7 +67,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -106,18 +101,10 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<annotationProcessorPaths>
-						<path>
-							<groupId>org.springframework.boot</groupId>
-							<artifactId>spring-boot-autoconfigure-processor</artifactId>
-						</path>
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
